@@ -10,4 +10,4 @@
 ## fork后的修改
 
 ### 2019-04-29
-选择type为datetime的时候，增加一个参数setLastSeconds，允许默认的时间为23:59:59（之前默认时间为00:00:00）;setLastSeconds为true的时候，默认为23:59:59，setLastSeconds为false的时候，还是默认为00:00:00
+选择type为datetime的时候，增加一个参数setLastSeconds，允许默认的时间为23:59:59（之前默认时间为00:00:00）; setLastSeconds为true的时候，默认为23:59:59，setLastSeconds为false的时候，还是默认为00:00:00
