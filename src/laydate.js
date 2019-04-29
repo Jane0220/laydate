@@ -391,6 +391,7 @@
     ,zIndex: null //控件层叠顺序
     ,done: null //控件选择完毕后的回调，点击清空/现在/确定也均会触发
     ,change: null //日期时间改变后的回调
+    ,setLastSeconds: false // 是不是要默认选中23:59:59
   };
   
   //多语言
@@ -817,24 +818,26 @@
   };
   
   //系统消息
-  Class.prototype.systemDate = function(newDate){
+  Class.prototype.systemDate = function(newDate, setLastSeconds){
     var thisDate = newDate || new Date();
+    var setLastSeconds = setLastSeconds || false;
     return {
       year: thisDate.getFullYear() //年
       ,month: thisDate.getMonth() //月
       ,date: thisDate.getDate() //日
-      ,hours: newDate ? newDate.getHours() : 0 //时
-      ,minutes: newDate ? newDate.getMinutes() : 0 //分
-      ,seconds: newDate ? newDate.getSeconds() : 0 //秒
+      ,hours: newDate ? newDate.getHours() : (!setLastSeconds ? 0 : 23) //时
+      ,minutes: newDate ? newDate.getMinutes() : (!setLastSeconds ? 0 : 59) //分
+      ,seconds: newDate ? newDate.getSeconds() : (!setLastSeconds ? 0 : 59) //秒
     }
   };
   
   //日期校验
-  Class.prototype.checkDate = function(fn){
+  Class.prototype.checkDate = function(fn){    
     var that = this
     ,thisDate = new Date()
     ,options = that.config
     ,dateTime = options.dateTime = options.dateTime || that.systemDate()
+    // (options.setLastSeconds ? that.systemDate(null, true) : that.systemDate(null, false))
     ,thisMaxDate, error
     
     ,elem = that.bindElem || options.elem[0]
@@ -926,7 +929,7 @@
     } else if(value && value.constructor === Date){ //如果值为日期对象时
       options.dateTime = that.systemDate(value);
     } else {
-      options.dateTime = that.systemDate();
+      options.dateTime = options.setLastSeconds ? that.systemDate(null, true) : that.systemDate(null, false);
       delete that.startState;
       delete that.endState;
       delete that.startDate;
@@ -1193,6 +1196,7 @@
         });
         if(!options.range) that.limit(lay(that.footer).find(ELEM_CONFIRM), that[startEnd], 0, ['hours', 'minutes', 'seconds']);
       };
+      
       if(options.range){
         if(!that[startEnd]) that[startEnd] = {
           hours: 0

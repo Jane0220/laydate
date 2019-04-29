@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "layui-laydate",
   "realname": "laydate",
   "version": "5.0.9",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "https",
-    "url": "git+https://github.com/sentsin/laydate.git"
+    "url": "git+https://github.com/Jane0220/laydate.git"
   },
   "author": "贤心",
   "homepage": "http://www.layui.com/laydate/",
@@ -23,7 +23,7 @@
     "del": "^2.2.2"
   },
   "bugs": {
-    "url": "https://github.com/sentsin/laydate/issues"
+    "url": "https://github.com/Jane0220/laydate/issues"
   },
   "directories": {
     "test": "test"
